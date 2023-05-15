@@ -140,9 +140,20 @@ const patchUsers = async (req, res) => {
   }
 };
 
+const postUserUUIDByID = async (req, res) => {
+  try {
+    const oneUser = await UsersModel.findById(req.params.id);
+    res.json(oneUser.uuid);
+  } catch (error) {
+    console.error(error.message);
+    res.json({ status: "error", msg: "error getting user" });
+  }
+};
+
 module.exports = {
   seedUsers,
   getUsers,
   postUsers,
   patchUsers,
+  postUserUUIDByID,
 };
