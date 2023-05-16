@@ -1,12 +1,22 @@
 const UsersModel = require("../models/Users");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require("uuid");
 
 const seedUsers = async (req, res) => {
   try {
     await UsersModel.deleteMany();
+
+    const password = "1234567890poiuytrewq";
+    const hash = await bcrypt.hash(password, 12);
+
+    console.log(hash);
+
     await UsersModel.create([
       {
         uuid: 10,
         name: "Andrew",
+        hash: hash,
         title: "Design Lead",
         profilePicture: "andrew.png",
         isManager: true,
@@ -22,6 +32,7 @@ const seedUsers = async (req, res) => {
       {
         uuid: 11,
         name: "Karen",
+        hash: hash,
         title: "UX Designer",
         profilePicture: "karen.png",
         isManager: false,
@@ -36,6 +47,7 @@ const seedUsers = async (req, res) => {
       {
         uuid: 12,
         name: "Joel",
+        hash: hash,
         title: "UX Designer",
         profilePicture: "joel.png",
         isManager: false,
@@ -50,6 +62,7 @@ const seedUsers = async (req, res) => {
       {
         uuid: 13,
         name: "Laura",
+        hash: hash,
         title: "UI Designer",
         profilePicture: "laura.png",
         isManager: false,
@@ -64,6 +77,7 @@ const seedUsers = async (req, res) => {
       {
         uuid: 14,
         name: "Isaac",
+        hash: hash,
         title: "Intern",
         profilePicture: "isaac.png",
         moodData: [
@@ -77,6 +91,7 @@ const seedUsers = async (req, res) => {
       {
         uuid: 15,
         name: "Nicole",
+        hash: hash,
         title: "Junior UX Developer",
         profilePicture: "nicole.png",
         moodData: [
@@ -90,6 +105,7 @@ const seedUsers = async (req, res) => {
       {
         uuid: 16,
         name: "Alex",
+        hash: hash,
         title: "Junior UI Developer",
         profilePicture: "alex.png",
         moodData: [
@@ -140,9 +156,20 @@ const patchUsers = async (req, res) => {
   }
 };
 
+const postUserUUIDByID = async (req, res) => {
+  try {
+    const oneUser = await UsersModel.findById(req.params.id);
+    res.json(oneUser.uuid);
+  } catch (error) {
+    console.error(error.message);
+    res.json({ status: "error", msg: "error getting user" });
+  }
+};
+
 module.exports = {
   seedUsers,
   getUsers,
   postUsers,
   patchUsers,
+  postUserUUIDByID,
 };
