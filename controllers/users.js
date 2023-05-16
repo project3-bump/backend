@@ -231,6 +231,16 @@ const getMoodsOfDirectReport = async (req, res) => {
   }
 };
 
+const getOneUserMoodData = async (req, res) => {
+  try {
+    const oneUser = await UsersModel.find(req.body.id);
+    res.json(oneUser);
+  } catch (error) {
+    console.errpr(error.message);
+    res.json({ status: "errror", msg: "cannot get one user" });
+  }
+};
+
 module.exports = {
   seedUsers,
   getUsers,
@@ -239,4 +249,5 @@ module.exports = {
   postUserUUIDByID,
   postUserPulses,
   getMoodsOfDirectReport,
+  getOneUserMoodData,
 };
