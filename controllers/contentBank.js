@@ -7,9 +7,10 @@ const seedContentBank = async (req, res) => {
       {
         onlyManager: true,
         topic: "Workload",
-        topicID: 1,
+        topicID: 0,
         topicPrompts: [
           [
+            0,
             "Increasing workload",
             "1. Explain the reasons for the increase:",
             "2. What are the new expectations:",
@@ -18,6 +19,7 @@ const seedContentBank = async (req, res) => {
             "5. Offer reassurance and support:",
           ],
           [
+            1,
             "Removing DR from a project",
             "Project Name:",
             "1. Explain the reasons for the removal:",
@@ -26,6 +28,7 @@ const seedContentBank = async (req, res) => {
             "4. Reiterate importance of their role in the team:",
           ],
           [
+            2,
             "Reallocating projects within the team",
             "1. Explain the reasons for reallocation:",
             "2. Acknowledge impact of the decision:",
@@ -65,9 +68,10 @@ const seedContentBank = async (req, res) => {
       {
         onlyManager: true,
         topic: "Work performance",
-        topicID: 2,
+        topicID: 1,
         topicPrompts: [
           [
+            0,
             "Bad work performance",
             "1. What are some instances where he/she have done well in:",
             "2. What is the specific instance where you felt that he/she is lacking:",
@@ -75,6 +79,7 @@ const seedContentBank = async (req, res) => {
             "4. Words of affirmation:",
           ],
           [
+            1,
             "Good work performance",
             "1. What are some instances where he/she have done well in:",
             "2. Express appreciation and gratitude:",
@@ -105,9 +110,10 @@ const seedContentBank = async (req, res) => {
       {
         onlyManager: true,
         topic: "Career growth",
-        topicID: 3,
+        topicID: 2,
         topicPrompts: [
           [
+            0,
             "Denying promotion",
             "1. Explain the reasons why he/she is not being considered for a promotion:",
             "2. Express empathy and acknowledge that it is disappointing news:",
@@ -115,6 +121,7 @@ const seedContentBank = async (req, res) => {
             "4. Offer support:",
           ],
           [
+            1,
             "Being promoted",
             "1. What is the new position:",
             "2. Explain the details of promotion:",
@@ -146,9 +153,10 @@ const seedContentBank = async (req, res) => {
       {
         onlyManager: true,
         topic: "Work attitude",
-        topicID: 4,
+        topicID: 3,
         topicPrompts: [
           [
+            0,
             "Poor work ethic",
             "1. What are some instances where he/she have done well in:",
             "2. What is the specific instance where you felt that he/she is lacking:",
@@ -156,6 +164,7 @@ const seedContentBank = async (req, res) => {
             "4. Words of affirmation:",
           ],
           [
+            1,
             "Personal issues affecting work",
             "1. Provide some encouraging words to acknowledge that it is a difficult time for him/her:",
             "2. What is the specific instance where you feel that their personal issues are impacting their work performance or behaviour:",
@@ -163,6 +172,7 @@ const seedContentBank = async (req, res) => {
             "4. Words of support:",
           ],
           [
+            2,
             "Negative Attitude",
             "1. What are some instances where he/she have done well in:",
             "2. What is the specific instance where you felt that he/she is lacking:",
@@ -200,9 +210,10 @@ const seedContentBank = async (req, res) => {
       {
         onlyManager: false,
         topic: "Management styles",
-        topicID: 5,
+        topicID: 4,
         topicPrompts: [
           [
+            0,
             "Request more guidance",
             "1. Express thanks for the guidance that you have received thus far in:",
             "2. What is the specific problem/situation that requires additional guidance:",
@@ -211,6 +222,7 @@ const seedContentBank = async (req, res) => {
             "5. Thank the manager for their time and willingness to help:",
           ],
           [
+            1,
             "Request less micromanagement",
             "1. Express thanks for the guidance that you have received thus far in:",
             "2. Give a specific example that your manager micro managed:",
@@ -245,9 +257,10 @@ const seedContentBank = async (req, res) => {
       {
         onlyManager: false,
         topic: "Conflicts",
-        topicID: 6,
+        topicID: 5,
         topicPrompts: [
           [
+            0,
             "Providing negative feedback about manager",
             "1. Start off with a positive note, thank manager for guidance and support thus far:",
             "2. Provide one specific example of the behaviour/actions that are concerning:",
@@ -256,6 +269,7 @@ const seedContentBank = async (req, res) => {
             "5. Reiterate that you value the working relationship and just want to help improve the working relationship:",
           ],
           [
+            1,
             "Conflict with team mates",
             "1. Start off with a positive note, thank manager for guidance and support thus far:",
             "2. What is the issue:",
@@ -288,9 +302,10 @@ const seedContentBank = async (req, res) => {
       {
         onlyManager: false,
         topic: "Career advancement opportunities",
-        topicID: 7,
+        topicID: 6,
         topicPrompts: [
           [
+            0,
             "Asking for a promotion",
             "1. State explicitly what position you would want:",
             "2. Highlight your accomplishments:",
@@ -298,6 +313,7 @@ const seedContentBank = async (req, res) => {
             "4. Discuss company's needs:",
           ],
           [
+            1,
             "Asking to be transferred to another team",
             "1. Which team do you want to transfer to:",
             "2. Explain reasons for wanting to transfer:",
@@ -331,9 +347,10 @@ const seedContentBank = async (req, res) => {
       {
         onlyManager: false,
         topic: "Workload",
-        topicID: 8,
+        topicID: 7,
         topicPrompts: [
           [
+            0,
             "Requesting for more work opportunities",
             "1. Highlight your accomplishments and your desire to contribute more to the company:",
             "2. Explain why you believe you are ready for more responsibilities:",
@@ -341,6 +358,7 @@ const seedContentBank = async (req, res) => {
             "4. Offer suggestions for projects or tasks you are interested in working on and how they align with the company's goals:",
           ],
           [
+            1,
             "Requesting for less work",
             "1. Explain the reasons for wanting to reduce workload:",
             "2. Provide specific examples of how the current workload is impacting your performance or well-being:",
