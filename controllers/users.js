@@ -153,20 +153,45 @@ const patchUsers = async (req, res) => {
     // Get user by id
     const user = await UsersModel.findById(req.params.id);
 
-    // Stores the date for the user's latest mood entry
+    // Check if the current date is different from the previous date stored in the user's moodData array
     const previousDate = user.moodData[user.moodData.length - 1].date;
 
-    // Schedule the update at 12am everyday
     if (currentDate !== previousDate) {
-      schedule.scheduleJob("* * * * *", async () => {
+      // Update the user's moodData immediately
+      await UsersModel.findByIdAndUpdate(req.params.id, {
+        $push: { moodData: { date: currentDate, mood: req.body.mood } },
+      });
+      console.log("Registered user mood");
+    } else {
+      console.log("Replacing user mood");
+
+      // Replace the previous mood with the new mood for the current date
+      const moodDataIndex = user.moodData.length - 1;
+      user.moodData[moodDataIndex].mood = req.body.mood;
+      console.log(req.body.mood);
+      console.log("User object before saving:", user);
+      await user.save(); // Save the updated user document to the database
+    }
+
+    // Schedule the update at 12am everyday
+    schedule.scheduleJob(req.params.id, "0 0 * * *", async () => {
+      // Get the updated user document from the database
+      const updatedUser = await UsersModel.findById(req.params.id);
+
+      // Check if the current date is different from the previous date stored in the user's moodData array
+      const previousDate =
+        updatedUser.moodData[updatedUser.moodData.length - 1].date;
+
+      if (currentDate !== previousDate) {
         await UsersModel.findByIdAndUpdate(req.params.id, {
           $push: { moodData: { date: currentDate, mood: req.body.mood } },
         });
-        console.log("Registered user mood");
-      });
-    } else {
-      console.log("Error! Date already registered!");
-    }
+        console.log("Scheduled user mood update");
+      } else {
+        console.log("MOOD ALREADY REGISTERED FOR THAT DATE!");
+      }
+    });
+
     console.log("Selected mood change");
     res.json({ status: "ok", msg: "user updated" });
   } catch (error) {
