@@ -2,6 +2,7 @@ const UsersModel = require("../models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
+const schedule = require("node-schedule");
 
 const seedUsers = async (req, res) => {
   try {
@@ -146,9 +147,27 @@ const postUsers = async (req, res) => {
 
 const patchUsers = async (req, res) => {
   try {
-    const updatedUser = {};
-    if ("moodData" in req.body) updatedUser.moodData = req.body.moodData;
-    await UsersModel.findByIdAndUpdate(req.params.id, updatedUser);
+    // Get date in YYYY-MM-DD format
+    const currentDate = new Date().toISOString().slice(0, 10);
+
+    // Get user by id
+    const user = await UsersModel.findById(req.params.id);
+
+    // Stores the date for the user's latest mood entry
+    const previousDate = user.moodData[user.moodData.length - 1].date;
+
+    // Schedule the update at 12am everyday
+    if (currentDate !== previousDate) {
+      schedule.scheduleJob("* * * * *", async () => {
+        await UsersModel.findByIdAndUpdate(req.params.id, {
+          $push: { moodData: { date: currentDate, mood: req.body.mood } },
+        });
+        console.log("Registered user mood");
+      });
+    } else {
+      console.log("Error! Date already registered!");
+    }
+    console.log("Selected mood change");
     res.json({ status: "ok", msg: "user updated" });
   } catch (error) {
     console.error(error.message);
@@ -166,10 +185,58 @@ const postUserUUIDByID = async (req, res) => {
   }
 };
 
+const postUserPulses = async (req, res) => {
+  try {
+    const oneUser = await UsersModel.findById(req.params.id);
+
+    // Gets the last 3 elements and reverses it
+    const pulse = oneUser.moodData.slice(-3).reverse();
+
+    res.json(pulse);
+  } catch (error) {
+    console.error(error.message);
+    res.json({ status: "error", msg: "error getting user" });
+  }
+};
+
+const getMoodsOfDirectReport = async (req, res) => {
+  try {
+    console.log(1);
+    const allUsers = await UsersModel.find();
+
+    const directReports = allUsers
+      .filter((user) => user.isManager === false)
+      .filter((directReport) => {
+        let consecutiveMoods = 0;
+
+        // Iterate over the moodData array
+        for (const moodData of directReport.moodData) {
+          if (moodData.mood < 2) {
+            consecutiveMoods++;
+
+            if (consecutiveMoods === 5) {
+              return true;
+            }
+          } else {
+            consecutiveMoods = 0;
+          }
+        }
+        return false;
+      });
+
+    res.json(directReports);
+  } catch (error) {
+    console.error(error.message);
+    res.json({ status: "error", msg: "cannot get users" });
+  }
+};
+
 module.exports = {
   seedUsers,
   getUsers,
   postUsers,
   patchUsers,
   postUserUUIDByID,
+  postUserPulses,
+  getMoodsOfDirectReport,
 };
