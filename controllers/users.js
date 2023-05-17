@@ -261,7 +261,6 @@ const getOneUserMoodData = async (req, res) => {
 		const oneUser = await UsersModel.findById(req.body.id);
 		const moodData = oneUser.moodData;
 		res.json(moodData);
-		res.json("debug");
 	} catch (error) {
 		console.error(error.message);
 		res.json({ status: "error", msg: "cannot get one user" });
