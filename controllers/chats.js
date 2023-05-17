@@ -5,7 +5,7 @@ const seedChats = async (req, res) => {
     await ChatsModel.deleteMany();
     await ChatsModel.create([
       {
-        timestamp: new Date("2023-01-01T10:00Z"),
+        timesent: new Date("2023-01-01T10:00Z"),
         senderUUID: 10,
         receiverUUID: 11,
         message:
@@ -13,7 +13,7 @@ const seedChats = async (req, res) => {
         hasScheduledBump: false,
       },
       {
-        timestamp: new Date("2023-01-01T10:10Z"),
+        timesent: new Date("2023-01-01T10:10Z"),
         senderUUID: 11,
         receiverUUID: 10,
         message: "Good morning Alex, will do so asap.",

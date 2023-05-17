@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const ChatsSchema = new mongoose.Schema(
   {
-    timestamp: { type: Date, require: true },
     senderUUID: { type: Number, require: true },
     receiverUUID: { type: Number, require: true },
     message: { type: String, require: true, minLength: 1 },
-    hasScheduledBump: { type: Boolean, require: true },
+    timesent: { type: Date, default: Date.now },
+    hasScheduledBump: { type: Boolean, default: false },
     scheduledBump: { type: Date },
   },
   { collection: "chats" }
