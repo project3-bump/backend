@@ -1,13 +1,13 @@
 const express = require("express");
 const {
-  seedUsers,
-  getUsers,
-  postUsers,
-  patchUsers,
-  postUserUUIDByID,
-  postUserPulses,
-  getMoodsOfDirectReport,
-  getOneUserMoodData,
+	seedUsers,
+	getUsers,
+	postUsers,
+	patchUsers,
+	postUserUUIDByID,
+	postUserPulses,
+	getMoodsOfDirectReport,
+	getOneUserMoodData,
 } = require("../controllers/users");
 const router = express.Router();
 
@@ -18,6 +18,6 @@ router.patch("/:id", patchUsers);
 router.post("/uuid/:id", postUserUUIDByID);
 router.post("/pulse/:id", postUserPulses);
 router.get("/pulse", getMoodsOfDirectReport);
-router.get("/oneuser", getOneUserMoodData);
+router.put("/oneuser", getOneUserMoodData);
 
 module.exports = router;

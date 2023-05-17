@@ -8,7 +8,7 @@ const seedUsers = async (req, res) => {
 	try {
 		await UsersModel.deleteMany();
 
-		const password = "1234567890poiuytrewq";
+		const password = "1";
 		const hash = await bcrypt.hash(password, 12);
 
 		console.log(hash);
@@ -258,11 +258,13 @@ const getMoodsOfDirectReport = async (req, res) => {
 
 const getOneUserMoodData = async (req, res) => {
 	try {
-		const oneUser = await UsersModel.find(req.body.id);
-		res.json(oneUser.moodsData);
+		const oneUser = await UsersModel.findById(req.body.id);
+		const moodData = oneUser.moodData;
+		res.json(moodData);
+		res.json("debug");
 	} catch (error) {
-		console.errpr(error.message);
-		res.json({ status: "errror", msg: "cannot get one user" });
+		console.error(error.message);
+		res.json({ status: "error", msg: "cannot get one user" });
 	}
 };
 
