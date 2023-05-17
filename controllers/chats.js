@@ -65,6 +65,7 @@ const putChats = async (req, res) => {
       receiverUUID: req.body.receiverUUID,
       message: req.body.message,
       hasScheduledBump: req.body.hasScheduledBump,
+      bumpDateTime: req.body.bumpDateTime,
     };
     if ("scheduledBump" in req.body)
       newChat.scheduledBump = new Date(req.body.scheduledBump);

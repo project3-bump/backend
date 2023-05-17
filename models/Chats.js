@@ -7,7 +7,7 @@ const ChatsSchema = new mongoose.Schema(
     message: { type: String, require: true, minLength: 1 },
     timesent: { type: Date, default: Date.now },
     hasScheduledBump: { type: Boolean, default: false },
-    scheduledBump: { type: Date },
+    bumpDateTime: { type: String },
   },
   { collection: "chats" }
 );

@@ -210,7 +210,7 @@ const seedContentBank = async (req, res) => {
       {
         onlyManager: false,
         topic: "Management styles",
-        topicID: 4,
+        topicID: 0,
         topicPrompts: [
           [
             0,
@@ -257,7 +257,7 @@ const seedContentBank = async (req, res) => {
       {
         onlyManager: false,
         topic: "Conflicts",
-        topicID: 5,
+        topicID: 1,
         topicPrompts: [
           [
             0,
@@ -302,7 +302,7 @@ const seedContentBank = async (req, res) => {
       {
         onlyManager: false,
         topic: "Career advancement opportunities",
-        topicID: 6,
+        topicID: 2,
         topicPrompts: [
           [
             0,
@@ -347,7 +347,7 @@ const seedContentBank = async (req, res) => {
       {
         onlyManager: false,
         topic: "Workload",
-        topicID: 7,
+        topicID: 3,
         topicPrompts: [
           [
             0,
