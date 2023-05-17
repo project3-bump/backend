@@ -228,6 +228,7 @@ const getMoodsOfDirectReport = async (req, res) => {
 	try {
 		console.log(1);
 		const allUsers = await UsersModel.find();
+		// res.json(allUsers)
 
 		const directReports = allUsers
 			.filter((user) => user.isManager === false)
@@ -247,6 +248,36 @@ const getMoodsOfDirectReport = async (req, res) => {
 					}
 				}
 				return false;
+			});
+
+		res.json(directReports);
+	} catch (error) {
+		console.error(error.message);
+		res.json({ status: "error", msg: "cannot get users" });
+	}
+};
+
+const getAllReports = async (req, res) => {
+	try {
+		const allUsers = await UsersModel.find();
+
+		const directReports = allUsers
+			.filter((user) => user.isManager === false)
+			.filter((directReport) => {
+				let consecutiveMoods = 0;
+
+				for (const moodData of directReport.moodData) {
+					if (moodData.mood < 2) {
+						consecutiveMoods++;
+
+						if (consecutiveMoods === 5) {
+							return false; // Return false instead of true
+						}
+					} else {
+						consecutiveMoods = 0;
+					}
+				}
+				return true; // Return true instead of false
 			});
 
 		res.json(directReports);
@@ -276,4 +307,5 @@ module.exports = {
 	postUserPulses,
 	getMoodsOfDirectReport,
 	getOneUserMoodData,
+	getAllReports,
 };
