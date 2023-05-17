@@ -155,7 +155,6 @@ const patchUsers = async (req, res) => {
 
     // Check if the current date is different from the previous date stored in the user's moodData array
     const previousDate = user.moodData[user.moodData.length - 1].date;
-
     if (currentDate !== previousDate) {
       // Update the user's moodData immediately
       await UsersModel.findByIdAndUpdate(req.params.id, {
@@ -167,10 +166,11 @@ const patchUsers = async (req, res) => {
 
       // Replace the previous mood with the new mood for the current date
       const moodDataIndex = user.moodData.length - 1;
-      user.moodData[moodDataIndex].mood = req.body.mood;
-      console.log(req.body.mood);
-      console.log("User object before saving:", user);
-      await user.save(); // Save the updated user document to the database
+      user.moodData[moodDataIndex].mood = parseInt(req.body.mood);
+      await UsersModel.findByIdAndUpdate(req.params.id, {
+        $set: { moodData: user.moodData },
+      });
+      console.log(user);
     }
 
     // Schedule the update at 12am everyday
