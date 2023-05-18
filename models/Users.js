@@ -10,6 +10,7 @@ const UsersSchema = new mongoose.Schema(
     isManager: { type: Boolean, require: true, default: false },
     moodData: { type: [Object], require: true },
     directReports: { type: [Number] },
+    managerUUID: { type: Number, default: 10 },
   },
   { collection: "users" }
 );
